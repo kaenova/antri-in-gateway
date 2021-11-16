@@ -14,4 +14,6 @@ RUN pip3 install -r  requirements.txt
 
 COPY ./ ./
 
+RUN chmod +x ./tunnel.sh
+
 CMD ["./tunnel.sh"]
