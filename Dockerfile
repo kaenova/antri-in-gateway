@@ -1,16 +1,17 @@
-FROM nginx:1.20.0-alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-RUN apk add py3-pip python3-dev
-RUN apk add alpine-sdk
-RUN apk add build-base
+FROM ubuntu/nginx:latest
+RUN apt update
+RUN apt install python3-pip python3-dev build-essential -y
+RUN apt-get update
+RUN apt-get install systemd -y
 
+COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /app
 
 COPY requirements.txt ./
 
-RUN pip install setuptools pip
-RUN pip install -r  requirements.txt
+RUN pip3 install setuptools pip
+RUN pip3 install -r  requirements.txt
 
 COPY ./ ./
 
-CMD ["./run_tunnel.sh"]
+CMD ["./tunnel.sh"]
