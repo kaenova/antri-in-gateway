@@ -5,10 +5,10 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN apk add --update nodejs npm
+RUN apk add --update nodejs npm curl nano
 
 RUN npm install .
 
 COPY ./ ./
 
-CMD ["node", "main.js"]
+CMD ["/bin/sh"]
