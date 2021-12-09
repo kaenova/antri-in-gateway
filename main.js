@@ -66,7 +66,7 @@ if ((process.env["NGROK_AUTH"] != undefined) || (process.env["NGROK_AUTH"] != ""
         urlNGROK = url
         berhasilInitNGROK = true
       } else {
-        berhas = false
+        berhasilInitNGROK = false
       }
     }
     console.log("Info: Berhasil menggunakan ngrok")
