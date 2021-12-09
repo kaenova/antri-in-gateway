@@ -32,8 +32,8 @@ function InitServer() {
     if (stdout) {
       console.log(`stdout: ${stdout}`);
     }
-  });
-  console.log("Nginx sudah berjalan")
+    console.log("Nginx sudah berjalan")
+  })
 }
 
 // Custom Domain
@@ -60,7 +60,7 @@ if ((process.env["NGROK_AUTH"] != undefined) || (process.env["NGROK_AUTH"] != ""
       i = i + 1;
       const url = await ngrok.connect({
         authtoken: process.env["NGROK_AUTH"],
-        addr: "http://127.0.0.1:3000"
+        addr: "http://127.0.0.1:80"
       })
       if (typeof (url) == 'string') {
         urlNGROK = url
