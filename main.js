@@ -9,6 +9,7 @@ function InitServer() {
   const express = require('express')
   const app = express()
   const port = 1325
+  const { exec } = require("child_process");
 
   app.get('/', (req, res) => {
     res.send({ ngrok: urlNGROK, Domain: urlCustomDomain, MachineIP: machineIP })
@@ -16,22 +17,21 @@ function InitServer() {
 
   app.listen(port, () => {
     console.log(`Server QR berjalan pada http://localhost:${port}`)
-
-    // Jalankan nginx
-    const { exec } = require("child_process");
-
-    exec("nginx", (error, stdout, stderr) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
-        process.exit();
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        process.exit();
-      }
-      console.log(`stdout: ${stdout}`);
-    });
   })
+
+  // Jalankan nginx
+  exec("nginx", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+    }
+    if (error || stderr) {
+      process.exit();
+    }
+    console.log(`stdout: ${stdout}`);
+  });
 }
 
 // Custom Domain
