@@ -1,20 +1,14 @@
-FROM ubuntu/nginx:latest
-RUN apt update
-RUN apt install python3-pip python3-dev build-essential -y
-RUN apt-get update
-RUN apt-get install systemd -y
+FROM nginx:1.21.4-alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /app
 
-COPY requirements.txt ./
+COPY package.json ./
 
-RUN pip3 install setuptools pip
-RUN pip3 install -r  requirements.txt
+RUN apk add --update nodejs npm
+
+RUN npm install .
 
 COPY ./ ./
 
-RUN chmod +x ./tunnel.sh
-RUN ngrok
-
-CMD ["./tunnel.sh"]
+CMD ["node", "main.js"]
