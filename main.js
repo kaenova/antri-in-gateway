@@ -18,9 +18,8 @@ function InitServer() {
   app.listen(port, () => {
     console.log(`Server QR berjalan pada http://localhost:${port}`)
   })
-
   // Jalankan nginx
-  exec("nginx", (error, stdout, stderr) => {
+  exec("nginx -e ./error.log", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
     }
@@ -30,8 +29,11 @@ function InitServer() {
     if (error || stderr) {
       process.exit();
     }
-    console.log(`stdout: ${stdout}`);
+    if (stdout) {
+      console.log(`stdout: ${stdout}`);
+    }
   });
+  console.log("Nginx sudah berjalan")
 }
 
 // Custom Domain
